@@ -1,0 +1,201 @@
+import sqlite3
+
+conn = sqlite3.connect("library.db")
+cursor = conn.cursor()
+
+
+def creating_bd():
+
+    cursor.execute("""CREATE TABLE IF NOT EXISTS
+     library (id integer primary key autoincrement, author text, title text, type text)""")
+
+    conn.commit()
+
+    cursor.execute("""INSERT INTO library (id, author, title, type)
+                  VALUES (NULL, 'Федор Достоевский', 'Преступление и наказание', 'Роман')""")
+    cursor.execute("""INSERT INTO library (id, author, title, type)
+                  VALUES (NULL, 'Федор Достоевский', 'Братья Карамазовы', 'Роман')""")
+    cursor.execute("""INSERT INTO library (id, author, title, type)
+                  VALUES (NULL, 'Лев Толстой', 'Война и мир', 'О войне')""")
+    cursor.execute("""INSERT INTO library (id, author, title, type)
+                  VALUES (NULL, 'Лев Толстой', 'Анна Каренина', 'Роман')""")
+    cursor.execute("""INSERT INTO library (id, author, title, type)
+                  VALUES (NULL, 'Александр Пушкин', 'Евгений Онегин', 'Роман')""")
+    cursor.execute("""INSERT INTO library (id, author, title, type)
+                  VALUES (NULL, 'Александр Пушкин', 'Капитанская дочка', 'Роман')""")
+
+    conn.commit()
+
+
+def add_new_author():
+    author = f'{input("Введите имя и фамилию автора ")}'
+    title = f'{input("Введите название книги ")}'
+    tab_type = f'{input("Введите жанр произведения ")}'
+
+    cursor.execute("INSERT INTO library(id, author, title, type) VALUES (?, ?, ?, ?)",
+                   (None, author, title, tab_type))
+    conn.commit()
+
+
+def remove_author():
+    cursor.execute("""SELECT * FROM library""")
+    print(cursor.fetchall())
+    print("1 - id автора\n2 - имя и фамилия автора\n3 - произведение\n4 - жанр")
+    selected = int(
+        input("По какому критерию вы хотите удалить автора? (введите цифру) "))
+    if selected == 1:
+        author_id = int(input("Введите id автора "))
+        cursor.execute("""
+          DELETE FROM library WHERE id = ?
+          """, (author_id,))
+    elif selected == 2:
+        author = f'{input("Введите имя и фамилию автора ").title()}'
+        cursor.execute("""
+        DELETE FROM library WHERE author = ?
+        """, (author,))
+    elif selected == 3:
+        title = f'{input("Введите название произведения ").title()}'
+        cursor.execute("""
+        DELETE FROM library WHERE title = ?
+        """, (title,))
+    elif selected == 4:
+        del_type = f'{input("Введите жанр произведения ").title()}'
+        cursor.execute("""
+        DELETE FROM library WHERE type = ?
+        """, (del_type,))
+    conn.commit()
+
+
+def search_in_bd():
+    print("1 - Поиск по id\n2 - Поиск всех книг одного автора\n3 - Поиск по названию произведения\n4 - Поиск по жанру произведения")
+    column = int(input("Введите эемент списка "))
+
+    def search_id():
+        value = int(input("Введите номер автора "))
+        cursor.execute(
+            """SELECT author, title, type FROM library WHERE id = ?""", (value,))
+        print(cursor.fetchall())
+
+    def search_author():
+        value = f'{input("Введите имя и фамилию автора ").title()}'
+        cursor.execute(
+            """SELECT title FROM library WHERE author = ?""", (value,))
+        print(cursor.fetchall())
+
+    def search_title():
+        value = f'{input("Введите название произведения ")}'
+        cursor.execute(
+            """SELECT id, author, type FROM library WHERE title = ?""", (value,))
+        print(cursor.fetchall())
+
+    def search_type():
+        value = f'{input("Введите жанр произведения ").title()}'
+        cursor.execute(
+            """SELECT id, author, title FROM library WHERE type = ?""", (value,))
+        print(cursor.fetchall())
+
+    if column == 1:
+        search_id()
+    elif column == 2:
+        search_author()
+    elif column == 3:
+        search_title()
+    elif column == 4:
+        search_type()
+
+
+def search_first_records():
+    for i in range(1, 5):
+        cursor.execute(
+            """SELECT id, author, title, type FROM library WHERE id = ? """, (i,))
+        print(cursor.fetchall())
+
+
+def update():
+    print("1 - Изменить автора\n2 - Изменить название произведения\n3 - Изменить жанр произведения\n4 - Назад")
+    value = int(input("Введите элемент списка "))
+
+    def author():
+
+        def all_author():
+            cursor.execute("""SELECT * FROM library""")
+            print("\n", cursor.fetchall(), "\n")
+            old = f'{input("Введите имя и фамилию которое хотите изменить ").title()}'
+            new = f'{input("Введите имя и фамилию на которое хотите изменить ").title()}'
+            cursor.execute(
+                """UPDATE library SET author = ? WHERE author = ?""", (new, old,))
+            conn.commit()
+            cursor.execute("""SELECT * FROM library""")
+            print("\n", cursor.fetchall(), "\n")
+
+        def one_author():
+            cursor.execute("""SELECT * FROM library""")
+            print("\n", cursor.fetchall(), "\n")
+            indicator = int(
+                input("Введите номер строки в которой хотите изменить значения "))
+            new = f'{input("Введите имя и фамилию на которое хотите изменить ").title()}'
+            cursor.execute(
+                """UPDATE library SET author = ? WHERE id = ?""", (new, indicator,))
+            conn.commit()
+            cursor.execute("""SELECT * FROM library""")
+            print("\n", cursor.fetchall(), "\n")
+
+        print("Хотите изменить всех аторов?")
+        a = f'{input("(Да/нет) ").title()}'
+        if a == 'Да':
+            all_author()
+        elif a == 'Нет':
+            one_author()
+
+    def title():
+        cursor.execute("""SELECT * FROM library""")
+        print("\n", cursor.fetchall(), "\n")
+        indicator = int(
+            input("Введите номер строки в которой хотите изменить значения "))
+        new = f'{input("Введите название произведения на которое хотите изменить ").title()}'
+        cursor.execute(
+            """UPDATE library SET title = ? WHERE id = ?""", (new, indicator,))
+        conn.commit()
+        cursor.execute("""SELECT * FROM library""")
+        print("\n", cursor.fetchall(), "\n")
+
+    def up_type():
+        cursor.execute("""SELECT * FROM library""")
+        print("\n", cursor.fetchall(), "\n")
+        indicator = int(
+            input("Введите номер строки в которой хотите изменить значения "))
+        new = f'{input("Введите жанр на который хотите изменить ").title()}'
+        cursor.execute(
+            """UPDATE library SET type = ? WHERE id = ?""", (new, indicator,))
+        conn.commit()
+        cursor.execute("""SELECT * FROM library""")
+        print("\n", cursor.fetchall(), "\n")
+
+    if value == 1:
+        author()
+    elif value == 2:
+        title()
+    elif value == 3:
+        up_type()
+
+while True:
+    print (' 1 - Создание базы данных\n 2 - Добавление нового автора\n 3 - Удаление автора\n 4 - Поиск\n 5 - Первые четыре автора\n 6 - Обновление информации\n 0 - Выход ')
+    value = int(input("Ведите значение "))
+    if value == 1:
+        creating_bd()
+    elif value == 2:
+        add_new_author()
+    elif value == 3:
+        remove_author()
+    elif value == 4:
+        search_in_bd()
+    elif value == 5:
+        search_first_records()
+    elif value == 6:
+        update()
+    elif value == 0:
+        break
+
+cursor.execute("""SELECT * FROM library""")
+print("\n", cursor.fetchall())
+conn.close()
