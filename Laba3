@@ -1,0 +1,389 @@
+from tkinter import *
+from tkinter.ttk import Combobox
+from tkinter import messagebox
+import tkinter as tk
+
+
+class Main(Frame):
+    def __init__(self, root):
+        super().__init__(root)
+        self.init_main()
+
+    def open_dialog(self):
+        if self.selected.get() == "Задание №01":
+            Task()
+        elif self.selected.get() == "Задание №02":
+            Task2()
+        elif self.selected.get() == "Задание №03":
+            Task3()
+        elif self.selected.get() == "Задание №1":
+            Task4()
+        elif self.selected.get() == "Задание №2":
+            Task5()
+        elif self.selected.get() == "Задание №3":
+            Task6()
+        elif self.selected.get() == "exit":
+            root.destroy()
+
+    def init_main(self):
+       
+        self.selected = StringVar()
+
+        rad1 = Radiobutton(center_frame, text="Задание №01", value="Задание №01", variable=self.selected)
+        rad2 = Radiobutton(center_frame, text="Задание №02", value="Задание №02", variable=self.selected)
+        rad3 = Radiobutton(center_frame, text="Задание №03", value="Задание №03", variable=self.selected)
+        rad4 = Radiobutton(center_frame, text="Задание №1", value="Задание №1", variable=self.selected)
+        rad5 = Radiobutton(center_frame, text="Задание №2", value="Задание №2", variable=self.selected)
+        rad6 = Radiobutton(center_frame, text="Задание №3", value="Задание №3", variable=self.selected)
+        rad7 = Radiobutton(center_frame, text="Выход", value="exit", variable=self.selected)
+        
+        rad1.grid(row=0, column=0, sticky='w')
+        rad2.grid(row=1, column=0, sticky='w')
+        rad3.grid(row=2, column=0, sticky='w')
+        rad4.grid(row=3, column=0, sticky='w')
+        rad5.grid(row=4, column=0, sticky='w')
+        rad6.grid(row=5, column=0, sticky='w')
+        rad7.grid(row=6, column=0, sticky='w')
+        
+        btn = Button(center_frame, text="Выбрать", command=self.open_dialog)
+        btn.grid(row=7, column=1, sticky='e')
+
+
+class Task(Toplevel):
+    def __init__(self):
+        super().__init__(root)
+        self.init_task()
+
+    def init_task(self):
+
+        def display_full_name():
+            messagebox.showinfo("окно сообщения", name.get() + " " + surname.get())
+
+        self.title('Задание №0.1')
+        width = self.winfo_screenwidth()
+        height = self.winfo_screenheight()
+        width = width // 2
+        height = height // 2
+        width = width - 400
+        height = height - 400
+        self.geometry('800x800+{}+{}'.format(width, height))
+        self.config(bg="gray")
+        self.resizable(False, False)
+
+        center_frame = Frame(self)
+        center_frame.place(relx=.5, rely=.5, anchor="c", bordermode=OUTSIDE)
+
+        name = StringVar()
+        surname = StringVar()
+        name_label = Label(center_frame, text="Введите имя:")
+        surname_label = Label(center_frame, text="Введите фамилию:")
+        name_label.grid(row=0, column=0, sticky="e")
+        surname_label.grid(row=1, column=0, sticky="e")
+        name_entry = Entry(center_frame, textvariable=name)
+        surname_entry = Entry(center_frame, textvariable=surname)
+        name_entry.grid(row=0, column=1, padx=5, pady=5)
+        surname_entry.grid(row=1, column=1, padx=5, pady=5)
+        message_button = Button(center_frame, text="показать", command=display_full_name)
+
+        message_button.grid(row=2, column=1, padx=5, pady=5, sticky="e")
+
+        self.grab_set()
+        self.focus_set()
+        
+
+class Task2(Toplevel):
+    def __init__(self):
+        super().__init__(root)
+        self.init_task2()
+
+    def init_task2(self):
+
+        self.title('Задание №0.2')
+        width = self.winfo_screenwidth()
+        height = self.winfo_screenheight()
+        width = width // 2
+        height = height // 2
+        width = width - 400
+        height = height - 400
+        self.geometry('800x800+{}+{}'.format(width, height))
+        self.config(bg="gray")
+        self.resizable(False, False)
+
+        center_frame = Frame(self)
+        center_frame.place(relx=.5, rely=.5, anchor="c", bordermode=OUTSIDE)
+        
+        l = tk.Label(center_frame, bg='white', width=200, text='empty')
+        l.pack()
+
+        def print_selection():
+            if (var1.get() == 1) & (var2.get() == 0):
+                l.config(text='I love Python ')
+            elif (var1.get() == 0) & (var2.get() == 1):
+                l.config(text='I love C++')
+            elif (var1.get() == 0) & (var2.get() == 0):
+                l.config(text='I do not anything')
+            else:
+                l.config(text='I love C++ and Python')
+
+        var1 = tk.IntVar()
+        var2 = tk.IntVar()
+        c1 = tk.Checkbutton(center_frame, text='Python', width=100, variable=var1, onvalue=1, offvalue=0, command=print_selection)
+
+        c1.pack()
+        c2 = tk.Checkbutton(center_frame, text='C++', width=100, variable=var2, onvalue=1, offvalue=0, command=print_selection)
+
+        c2.pack()
+
+        self.grab_set()
+        self.focus_set()
+
+class Task3(Toplevel):
+    def __init__(self):
+        super().__init__(root)
+        self.init_task3()
+
+    def init_task3(self):
+
+        def clicked01():
+            label1.configure(text="Вы выбрали {}".format(self.selected1.get()))
+
+        self.title('Задание №0.3')
+        width = self.winfo_screenwidth()
+        height = self.winfo_screenheight()
+        width = width // 2
+        height = height // 2
+        width = width - 400
+        height = height - 400
+        self.geometry('800x800+{}+{}'.format(width, height))
+        self.config(bg="gray")
+        self.resizable(False, False)
+
+        top_frame = Frame(self)
+        top_frame.place(relx=.5, rely=.3, anchor="n", bordermode=OUTSIDE)
+
+        center_frame = Frame(self)
+        center_frame.place(relx=.5, rely=.5, anchor="c", bordermode=OUTSIDE)
+
+        header = Label(top_frame, text="Выберите курс", font=20)
+        header.pack()
+
+        self.selected1 = StringVar()
+
+        rad1 = Radiobutton(center_frame, text="Python", value="Python", variable=self.selected1)
+        rad2 = Radiobutton(center_frame, text="Java", value="Java", variable=self.selected1)
+        rad3 = Radiobutton(center_frame, text="C#", value="C#", variable=self.selected1)
+        rad4 = Radiobutton(center_frame, text="JavaScript", value="JavaScript", variable=self.selected1)
+
+        rad1.grid(row=0, column=0, sticky='w')
+        rad2.grid(row=1, column=0, sticky='w')
+        rad3.grid(row=2, column=0, sticky='w')
+        rad4.grid(row=3, column=0, sticky='w')
+
+        btn = Button(center_frame, text="Подтвердить", command=clicked01)
+
+        btn.grid(row=4, column=1)
+
+        label1 = Label(center_frame, width=100)
+
+        label1.grid(columnspan=2)
+
+        self.grab_set()
+        self.focus_set()
+
+class Task4(Toplevel):
+    def __init__(self):
+        super().__init__(root)
+        self.init_task4()
+
+    def init_task4(self):
+
+        def clicked():
+            messagebox.showinfo("Общая сумма", (self.var_chk1.get()+self.var_chk2.get()+self.var_chk3.get()+self.var_chk4.get()+self.var_chk5.get()+self.var_chk6.get()))
+
+        self.title('Задание №1')
+        width = self.winfo_screenwidth()
+        height = self.winfo_screenheight()
+        width = width // 2
+        height = height // 2
+        width = width - 400
+        height = height - 400
+        self.geometry('800x800+{}+{}'.format(width, height))
+        self.config(bg="gray")
+        self.resizable(False, False)
+
+        top_frame = Frame(self)
+        top_frame.place(relx=.49, rely=.35, anchor="n", bordermode=OUTSIDE)
+
+        center_frame = Frame(self)
+        center_frame.place(relx=.5, rely=.5, anchor="c", bordermode=OUTSIDE)
+
+        lbl_top = Label(top_frame, text="Каталог:")
+
+        lbl_top.grid(row=0, column=0, sticky='w')
+
+        self.var_chk1 = IntVar()
+        self.var_chk2 = IntVar()
+        self.var_chk3 = IntVar()
+        self.var_chk4 = IntVar()
+        self.var_chk5 = IntVar()
+        self.var_chk6 = IntVar()
+
+        checkbutton1 = Checkbutton(
+            center_frame, text="Диван", variable=self.var_chk1, onvalue=10000, offvalue=0)
+        checkbutton2 = Checkbutton(
+            center_frame, text="Шкаф", variable=self.var_chk2, onvalue=5000, offvalue=0)
+        checkbutton3 = Checkbutton(
+            center_frame, text="Кресло", variable=self.var_chk3, onvalue=8000, offvalue=0)
+        checkbutton4 = Checkbutton(
+            center_frame, text="Стол", variable=self.var_chk4, onvalue=3500, offvalue=0)
+        checkbutton5 = Checkbutton(
+            center_frame, text="Тумба", variable=self.var_chk5, onvalue=1500, offvalue=0)
+        checkbutton6 = Checkbutton(
+            center_frame, text="Стул", variable=self.var_chk6, onvalue=500, offvalue=0)
+
+        checkbutton1.grid(row=0, column=0, sticky="w")
+        checkbutton2.grid(row=1, column=0, sticky="w")
+        checkbutton3.grid(row=2, column=0, sticky="w")
+        checkbutton4.grid(row=3, column=0, sticky="w")
+        checkbutton5.grid(row=4, column=0, sticky="w")
+        checkbutton6.grid(row=5, column=0, sticky="w")
+
+        btn = Button(center_frame, text="Добавить в корзину", command=clicked)
+
+        btn.grid(row=6, column=1)
+
+        self.grab_set()
+        self.focus_set()
+
+class Task5(Toplevel):
+    def __init__(self):
+        super().__init__(root)
+        self.init_task5()
+
+    def init_task5(self):
+
+        def create_nf():
+            messagebox.showinfo(
+                "New file", "Давайте представим что мы его создали")
+
+        def open_nf():
+            messagebox.showinfo(
+                "New file", "Давайте представим что мы его открыли")
+
+        def save_tf():
+            messagebox.showinfo(
+                "New file", "Давайте представим что мы его сохранили")
+
+        def edit_f():
+            messagebox.showinfo(
+                "New file", "Давайте представим что мы его отредактировали")
+
+        def edit_something():
+            messagebox.showinfo(
+                "New file", "Давайте представим что мы что-то отредактировали")
+
+        def edit_nothing():
+            messagebox.showinfo(
+                "New file", "Давайте представим что мы ничего не редактировали")
+
+        def view_f():
+            messagebox.showinfo(
+                "New file", "Давайте представим что мы его посмотрели")
+
+        def view_something():
+            messagebox.showinfo(
+                "New file", "Давайте представим что мы что-то посмотрели")
+
+        def view_se():
+            messagebox.showinfo(
+                "New file", "Давайте представим что мы посмотрели ещё что-то")
+
+        self.title('Задание №2')
+        width = self.winfo_screenwidth()
+        height = self.winfo_screenheight()
+        width = width // 2
+        height = height // 2
+        width = width - 400
+        height = height - 400
+        self.geometry('800x800+{}+{}'.format(width, height))
+        self.config(bg="gray")
+        self.resizable(False, False)
+
+        main_menu = Menu(self)
+        submenu_file = Menu(main_menu, tearoff=0)
+        submenu_edit = Menu(main_menu, tearoff=0)
+        submenu_view = Menu(main_menu, tearoff=0)
+
+        submenu_file.add_command(label='Create new file', command=create_nf)
+        submenu_file.add_separator()
+        submenu_file.add_command(label='Open new file', command=open_nf)
+        submenu_file.add_separator()
+        submenu_file.add_command(label='Save this file', command=save_tf)
+
+        submenu_edit.add_command(label='Edit file', command=edit_f)
+        submenu_edit.add_separator()
+        submenu_edit.add_command(label='Edit something', command=edit_something)
+        submenu_edit.add_separator()
+        submenu_edit.add_command(label='Edit nothing', command=edit_nothing)
+
+        submenu_view.add_command(label='View font', command=view_f)
+        submenu_view.add_separator()
+        submenu_view.add_command(label='View something', command=view_something)
+        submenu_view.add_separator()
+        submenu_view.add_command(label='View something else', command=view_se)
+        submenu_view.add_separator()
+        submenu_view.add_command(label='Курсовая работа', state=DISABLED)
+
+        main_menu.add_cascade(label='File', menu=submenu_file)
+        main_menu.add_cascade(label='Edit', menu=submenu_edit)
+        main_menu.add_cascade(label='View', menu=submenu_view)
+        self.config(menu=main_menu)
+
+        self.grab_set()
+        self.focus_set()
+
+class Task6(Toplevel):
+    def __init__(self):
+        super().__init__(root)
+        self.init_task6()
+
+    def init_task6(self):
+
+        self.title('Задание №3')
+        width = self.winfo_screenwidth()
+        height = self.winfo_screenheight()
+        width = width // 2
+        height = height // 2
+        width = width - 400
+        height = height - 400
+        self.geometry('800x800+{}+{}'.format(width, height))
+        self.config(bg="gray")
+        self.resizable(False, False)
+
+        center_frame = Frame(self)
+        center_frame.place(relx=.5, rely=.5, anchor="c", bordermode=OUTSIDE)
+
+        combo = Combobox(center_frame)
+        combo['values'] = (1, 2, 3, 4)
+        combo.current()
+        combo.grid(row=0, column=0)
+
+
+if __name__ == "__main__":
+    root = Tk()
+    root.title('Лабораторная работа №3')
+    width = root.winfo_screenwidth()
+    height = root.winfo_screenheight()
+    width = width // 2
+    height = height // 2
+    width = width - 500
+    height = height - 500
+    root.geometry('1000x1000+{}+{}'.format(width, height))
+    root.config(bg="black")
+
+    center_frame = Frame(root)
+    center_frame.place(relx=.5, rely=.5, anchor="c", bordermode=OUTSIDE)
+
+    app = Main(root)
+    app.pack()
+    root.mainloop()
