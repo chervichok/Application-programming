@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Laba7</title>
+</head>
+<link rel="stylesheet" href="C:\Projects\Laba7\css\L7.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<body>
+<div class="site">
+    <header class="masthead">
+        <h2 class="site-title">Clothing store</h2>
+    </header>
+
+    <main id="content" class="main-content">
+        <h2>Registration form</h2>
+        <form action="check.php" method="post">
+            <input type="email" name="mail" class="form-control" placeholder="Ведите электронную почту"><br>
+            <input type="text" class="form-control" name="mname" id="mname" placeholder="Ведите фамилию"><br>
+            <input type="text" class="form-control" name="fname" id="fname" placeholder="Ведите имя"><br>
+            <input type="password" class="form-control" name="pass" id="pass" placeholder="Ведите пароль"><br>
+            <button class="btn btn-success" type="submit">Sign up</button>
+        </form>
+        <h2>Authorization form</h2>
+        <form action="autho.php" method="post">
+            <input type="text" class="form-control" name="login" id="login" placeholder="Ведите логин"><br>
+            <input type="password" class="form-control" name="pass" id="pass" placeholder="Ведите пароль"><br>
+            <button class="btn btn-success" type="submit">Log in</button>
+        </form>
+    </main>
+
+    <aside class="sidebar">
+        <h3>The Sidebar</h3>
+        <p>The sidebar typically contains things like:</p>
+        <ul>
+            <li><a href="info.html">Information</a></li>
+            <li><a href="main.html">Menu</a></li>
+            <li>Ads</li>
+        </ul>
+    </aside>
+
+    <footer class="colophon grid">
+        <aside><a href="#" target="_blank" rel="nofollow">Just a footer click here</a>.</aside>
+    </footer>
+</div>
+</body>
+</html>
+
