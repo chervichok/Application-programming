@@ -1,0 +1,41 @@
+footer{
+	height: 220px;
+	background: #375A61;
+}
+
+.header{
+	background: #B2DFE8;
+	height: 150px;
+}
+
+.card{
+	width: 30%;
+	margin-left: 1%;
+}
+
+.site-title {
+    text-align: center;
+    padding-top: 55px;
+}
+
+.footer {
+	color: white;
+	text-align: center;
+	padding-top: 50px;
+}
+
+.color {
+	background-color: #cccccc;
+	
+}
+
+.h2 {
+	padding-top: 30px;
+}
+
+a {
+    color: white;
+}
+a:visited {
+    color: white;
+}

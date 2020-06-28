@@ -1,0 +1,45 @@
+footer{
+	height: 220px;
+	background: #375A61;
+}
+
+.header{
+	background: #B2DFE8;
+	height: 150px;
+}
+
+.card {
+	width: 100%;
+}
+.icon {
+	width: 20%;
+}
+.box {
+	margin-top: 60px;
+    text-align: center;
+}
+.icon:hover{
+    font-size: 2.5em;
+    transition: all 0.4s;
+}
+
+.site-title {
+    text-align: center;
+    padding-top: 55px;
+}
+
+a {
+    color: white;
+}
+a:visited {
+    color: white;
+}
+
+.color {
+	background-color: #cccccc;
+	
+}
+
+.h2 {
+	padding-top: 30px;
+}
